@@ -2,11 +2,9 @@ package com.forumHub.forumHub.domain.topico;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.forumHub.forumHub.domain.curso.Curso;
 import com.forumHub.forumHub.domain.resposta.Resposta;
 import com.forumHub.forumHub.domain.usuario.Usuario;
-import com.forumHub.forumHub.domain.usuario.UsuarioNomeSerializer;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

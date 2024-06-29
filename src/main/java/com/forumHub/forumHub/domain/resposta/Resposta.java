@@ -1,5 +1,6 @@
 package com.forumHub.forumHub.domain.resposta;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.forumHub.forumHub.domain.topico.Topico;
 import com.forumHub.forumHub.domain.usuario.Usuario;
 import jakarta.persistence.*;
@@ -23,7 +24,7 @@ public class Resposta {
     private String mensagem;
 
     private LocalDateTime data_criacao;
-    //private boolean solucao;
+    private boolean solucao;
 
     @ManyToOne
     @JoinColumn(name = "autor_id")
@@ -31,6 +32,7 @@ public class Resposta {
 
     @ManyToOne
     @JoinColumn(name = "topico_id")
+    @JsonBackReference
     private Topico topico;
 
     public String getConteudo() {
@@ -41,4 +43,6 @@ public class Resposta {
         this.mensagem = conteudo;
 
     }
+
+
 }

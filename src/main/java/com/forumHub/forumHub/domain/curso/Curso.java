@@ -30,4 +30,11 @@ public class Curso {
     public Curso(String nomeCurso) {
         this.nome = nomeCurso;
     }
+
+    public void atualizarInformacoes(DadosCursos dados) {
+        if (dados.curso() != null) {
+            this.nome = dados.curso();
+        }
+
+    }
 }

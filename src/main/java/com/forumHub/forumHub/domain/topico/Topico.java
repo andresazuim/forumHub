@@ -47,6 +47,7 @@ public class Topico {
     private Curso curso;
 
     @OneToMany(mappedBy = "topico")
+    @JsonManagedReference
     private List<Resposta> respostas = new ArrayList<>();
 
     public Topico(DadosTopicos dados) {
@@ -55,6 +56,18 @@ public class Topico {
         this.mensagem = dados.mensagem();
         this.nomeAutor = getNomeAutor();
         this.curso = curso;
+
+    }
+    public void atualizarInformacoes(DadosAtualizacaoTopico dados) {
+        if (dados.titulo() != null) {
+            this.titulo = dados.titulo();
+        }
+        if (dados.mensagem()!= null) {
+            this.mensagem = dados.mensagem();
+        }
+        if (dados.curso() != null) {
+            this.curso.atualizarInformacoes(dados.curso());
+        }
 
     }
 
@@ -76,4 +89,5 @@ public class Topico {
 
     public void setId(Long topicoId) {
     }
+
 }

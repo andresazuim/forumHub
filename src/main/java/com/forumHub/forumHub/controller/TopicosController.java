@@ -1,6 +1,7 @@
 package com.forumHub.forumHub.controller;
 
 import com.forumHub.forumHub.domain.topico.*;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/topicos")
-//@SecurityRequirement(name = "bearer-key")
+@SecurityRequirement(name = "bearer-key")
 public class TopicosController {
 
     @Autowired
@@ -43,7 +44,14 @@ public class TopicosController {
     }
 
 
-    //editar
+    @PutMapping
+    @Transactional
+    public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoTopico dados) {
+        var medico = TopicoRepository.getReferenceById(dados.id());
+        medico.atualizarInformacoes(dados);
+
+        return ResponseEntity.ok(new DadosDetalhamentoTopico(medico));
+    }
 
 
 }

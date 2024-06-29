@@ -55,7 +55,6 @@ public class TopicoService {
     }
 
 
-
     // Método para deletar um tópico
 //    public void deletarTopico(Long id) {
 //        Optional<Topico> topico = topicoRepository.findById(id);

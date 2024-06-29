@@ -9,6 +9,7 @@ import com.forumHub.forumHub.domain.topico.TopicoService;
 import com.forumHub.forumHub.domain.usuario.Usuario;
 import com.forumHub.forumHub.domain.usuario.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -52,6 +53,7 @@ public class RespostaController {
         novaResposta.setConteudo(dadosCriacaoResposta.conteudo());
         novaResposta.setAutor(autor);
         novaResposta.setTopico(topico);
+        novaResposta.setSolucao(false);
 
         respostaService.salvarResposta(novaResposta);
 
@@ -60,5 +62,19 @@ public class RespostaController {
                 novaResposta.getConteudo(),
                 novaResposta.getAutor().getId()
         );
+    }
+    @DeleteMapping("/topicos/{topicoId}/respostas/{respostaId}")
+    public ResponseEntity<Void> apagarResposta(@PathVariable Long topicoId, @PathVariable Long respostaId) {
+        Topico topico = topicoService.listaTopicoID(topicoId)
+                .orElseThrow(() -> new IllegalArgumentException("Tópico não encontrado"));
+
+        Resposta resposta = respostaService.buscarRespostaPorId(respostaId);
+        if (!resposta.getTopico().equals(topico)) {
+            throw new IllegalArgumentException("A resposta não pertence ao tópico especificado.");
+        }
+
+        respostaService.deletarResposta(respostaId);
+
+        return ResponseEntity.noContent().build();
     }
 }
